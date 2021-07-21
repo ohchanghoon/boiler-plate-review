@@ -5,6 +5,7 @@ const app = express();
 const PORT = 5000;
 const mongoose = require('mongoose');
 const { User } = require('./models/User');
+const config = require('./config/key');
 
 // application/json
 app.use(express.json());
@@ -12,15 +13,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 mongoose
-  .connect(
-    'mongodb+srv://changhoon:1234@boilerplate.gi6r0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    }
-  )
+  .connect(config.mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
   .then(() => console.log('MongoDB Connected'))
   .catch(console.log());
 
